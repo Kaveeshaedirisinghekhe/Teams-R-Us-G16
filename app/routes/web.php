@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('auth.register');
+    //return view('auth.register');
+    return view('welcome');
 });
 
 Route::middleware([
@@ -14,4 +15,12 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/cv-upload', function () {
+        return view('cv.upload');
+    })->name('cv.upload');
+
+    Route::post('/cv-upload', [\App\Http\Controllers\CVUploadController::class, 'store'])->name('cv.upload.store');
 });
